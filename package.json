@@ -1,0 +1,14 @@
+{
+  "name": "helloworld-express",
+  "version": "1.0.0",
+  "description": "exemplo aula de desenvolvimento de APIs com Expres - IGTI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Armando N Junior",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
