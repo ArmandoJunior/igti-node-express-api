@@ -53,7 +53,32 @@ app.get('/testMultipleHandlers', (request, response, next) => {
 }, (_, res) => {
    console.log('Second method')
    res.send('/testMultipleHandlers')
+   res.end()
 });
+
+const callback1 = (request, response, next) => {
+   console.log('callback1')
+   next()
+}
+
+const callback2 = (request, response, next) => {
+   console.log('callback2')
+   response.send('callback')
+   response.end()
+}
+
+app.get('/testMultipleHandlersArray', [callback1, callback2])
+
+app.route('/testRoute')
+    .get((req, res) => {
+       res.end();
+    })
+    .post((req, res) => {
+       res.end()
+    })
+    .delete((req, res) => {
+       res.end()
+    })
 
 app.listen(port, () => {
    console.log(`App listening on port ${port}`);
