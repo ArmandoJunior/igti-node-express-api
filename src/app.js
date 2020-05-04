@@ -16,6 +16,16 @@ app.get("/account/:id", async (req, res) => {
    }
 })
 
+app.delete("/account/:id", async (req, res) => {
+   try{
+      await Account.deleteOne(req.params.id)
+
+      res.send()
+   }catch(err){
+      res.status(400).send(err.message)
+   }
+})
+
 app.post("/account", (req, res) => {
    try{
       let account = {name: req.body.name, balance: req.body.balance}
