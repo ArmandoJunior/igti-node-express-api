@@ -1,6 +1,58 @@
 const express = require('express');
 const app = express();
+const Account = require("./../models/account")
 const port = 3008;
+
+app.use(express.json())
+
+app.get("/account/:id", async (req, res) => {
+   try{
+      const account = await Account.getById(req.params.id)
+      res.send(account)
+
+   }catch(err){
+      res.status(400).send(err.message)
+
+   }
+})
+
+app.post("/account", (req, res) => {
+   try{
+      let account = {name: req.body.name, balance: req.body.balance}
+      let validatedAccount = Account.validate(account)
+      let savedAccount = Account.save(validatedAccount)
+      console.log(savedAccount)
+      res.send(savedAccount)
+
+   }catch(err){
+      res.status(400).send(err.message)
+
+   }
+})
+
+app.post("/account/withdraw", (req, res) => {
+   try{
+      let withdraw = {id: req.body.id, value: req.body.value}
+      let account = Account.withdraw(withdraw)
+      res.send(account)
+
+   }catch(err){
+      res.status(400).send(err.message)
+
+   }
+})
+
+app.post("/account/deposit", (req, res) => {
+   try{
+      let deposit = {id: req.body.id, value: req.body.value}
+      let account = Account.deposit(deposit)
+      res.send(account)
+
+   }catch(err){
+      res.status(400).send(err.message)
+
+   }
+})
 
 app.all('/', (request, response) => {
    switch (request.method) {
